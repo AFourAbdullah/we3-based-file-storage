@@ -22,6 +22,7 @@ const FileUpload = ({ loadProvider }) => {
   };
   return (
     <div className="bg-black text-white h-5">
+      <button onClick={handleSubmit}>hello</button>
       <h3>{account && account}</h3>
     </div>
   );
