@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@thirdweb-dev/chains": "^0.1.50",
-    "@thirdweb-dev/react": "^3.14.39",
+    "@thirdweb-dev/react": "^3.11.7",
     "autoprefixer": "10.4.15",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
