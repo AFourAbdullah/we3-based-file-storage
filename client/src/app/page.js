@@ -8,44 +8,16 @@ import FileUpload from "@/components/FileUpload";
 import { useAddress } from "@thirdweb-dev/react";
 
 export default function Home() {
-  const [currentUser, setCurrentUser] = useState("");
-
-  const checkWalletConnection = async () => {
-    try {
-      if (!window.ethereum) return "Please install metamask";
-      const accounts = await window.ethereum.request({
-        method: "eth_accounts",
-      });
-      if (accounts.length) {
-        setCurrentUser(accounts[0]);
-      } else {
-        setCurrentUser("");
-      }
-    } catch (error) {
-      return "NOT CONNECTED TO METAMASK";
-    }
-  };
-
-  // making wallet  connected onclick
-  const ConnectWallet = async () => {
-    try {
-      if (!window.ethereum) return "Please install metamask";
-      const accounts = await window.ethereum.request({
-        //method is different bcoz we will connect on clicking
-        method: "eth_requestAccounts",
-      });
-
-      setCurrentUser(accounts[0]);
-    } catch (error) {
-      return "something izzz wrong";
-    }
-  };
   useEffect(() => {
-    checkWalletConnection();
+    if (!window.ethereum) {
+      alert("please install metamask");
+    }
+    // const ipfsJsn =
+    //   "https://gateway.pinata.cloud/ipfs/QmVX16BsVvwaqKvfzEjEF2FKXpi8FKpPKotg38Sp4M3Nxb";
+    // console.log(ipfsJsn.name);
   }, []);
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between ">
-      <Header ConnectWallet={ConnectWallet} currentUser={currentUser} />
+    <main className="flex  flex-col items-center justify-between ">
       <FileUpload />
     </main>
   );
