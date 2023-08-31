@@ -81,15 +81,15 @@ const FileUpload = () => {
           Uploading to ipfs please wait
         </h4>
       )}
-      <div className="md:w-[60%]  w-[90%] flex justify-center items-center shadow-2xl drop-shadow-2xl bg-slate-800 mt-[100px]">
+      <div className="md:w-[40%] h-[300px]  w-[90%] flex justify-center items-center shadow-2xl drop-shadow-2xl bg-gray-300 mt-[100px]">
         <form
-          className="w-full  p-6  rounded shadow-md"
+          className="w-full h-full flex flex-col justify-center gap-6  p-6  rounded shadow-md"
           onSubmit={handleSubmit}
         >
           <div className="mb-4">
             <label
               htmlFor="image"
-              className="block text-gray-100 font-medium mb-2"
+              className="block text-lg text-slate-900 text-center font-medium mb-6"
             >
               File Upload
             </label>

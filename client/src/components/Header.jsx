@@ -6,10 +6,10 @@ import Link from "next/link";
 const Header = () => {
   const address = useAddress();
   return (
-    <header className="w-screen  bg-slate-900 flex items-center justify-between px-5">
+    <header className="w-screen  bg-orange-700 flex items-center justify-between px-5">
       <img src={logo} alt="" className="w-20 h-20" />
       {address && (
-        <div className="flex text-white text-lg justify-between">
+        <div className="flex text-white text-lg w-[300px] justify-between">
           <Link href="/myfiles" className="mr-5">
             My Files
           </Link>

@@ -17,7 +17,7 @@ export default function Home() {
     // console.log(ipfsJsn.name);
   }, []);
   return (
-    <main className="flex  flex-col items-center justify-between ">
+    <main className="flex   items-center justify-around ">
       <FileUpload />
     </main>
   );
