@@ -28,8 +28,11 @@ export default function Home() {
     // console.log(ipfsJsn.name);
   }, []);
   return (
-    <main className="w-screen">
-      <Hero uploadModal={setuploadModal} />
+    <main className="w-screen relative">
+      {uploadModal && (
+        <div className="absolute w-screen h-screen  backdrop-blur-lg"></div>
+      )}
+      <Hero setuploadModal={setuploadModal} modal={uploadModal} />
 
       <FileUpload
         contract={contract}

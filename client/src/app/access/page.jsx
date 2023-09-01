@@ -39,6 +39,33 @@ const page = () => {
       setloadMessage(false);
     }
   };
+  const modifyAccess = async (add, acc) => {
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      CONTRACT_ABI,
+      signer
+    );
+    setloadMessage(true);
+
+    try {
+      let transaction;
+      acc
+        ? (transaction = await contract.disAllow(add))
+        : (transaction = await contract.allow(add));
+      await transaction.wait();
+      toast.success("Access Modfied");
+
+      getAccessList();
+
+      console.log(accessList);
+
+      setloadMessage(false);
+    } catch (error) {
+      setloadMessage(false);
+    }
+  };
   const getAccessList = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -111,11 +138,18 @@ const page = () => {
                   </td>
                   <td className=" px-4  w-[200px] py-2 border-2 border-slate-600">
                     {item.access ? (
-                      <button className="bg-red-800 ml-5 text-white px-2 hover:bg-red-600 py-1 rounded">
+                      <button
+                        className="bg-red-800 ml-5 text-white px-2 hover:bg-red-600 py-1 rounded"
+                        onClick={() => modifyAccess(item.user, item.access)}
+                      >
+                        {" "}
                         Deny Access
                       </button>
                     ) : (
-                      <button className="bg-green-800 ml-5 text-white px-2 hover:bg-green-600 py-1 rounded">
+                      <button
+                        className="bg-green-800 ml-5 text-white px-2 hover:bg-green-600 py-1 rounded"
+                        onClick={() => modifyAccess(item.user, item.access)}
+                      >
                         Allow Access
                       </button>
                     )}

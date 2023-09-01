@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "@/constants";
 import { ethers } from "ethers";
 import { useAddress } from "@thirdweb-dev/react";
-const FileUpload = () => {
+const FileUpload = ({ uploadModal, modal }) => {
   const [recipient, setRecipient] = useState("");
   const [name, setname] = useState("");
   const [description, setdescription] = useState("");
@@ -19,7 +19,6 @@ const FileUpload = () => {
 
   const JWT = `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`;
   const GetFiles = async () => {
-   
     try {
       let filesArray = await contract.display(address);
 
@@ -56,10 +55,11 @@ const FileUpload = () => {
         const fileUri = FileResponse.data.IpfsHash;
         console.log("hhhhh", fileUri);
 
-        setuploadMessage(false);
         let transaction = await contract.addFiles(fileUri);
         await transaction.wait();
-        alert("transaction successffull");
+        toast.success("transaction successffull");
+        setfileName("");
+        setuploadMessage(false);
       }
     } catch (error) {
       console.log(error);
@@ -70,54 +70,55 @@ const FileUpload = () => {
 
   return (
     <>
-      {uploadMessage && (
-        <h4 className=" top-0 left-0 text-violet-950 text-lg text-center mb-0">
-          Uploading to ipfs please wait
-        </h4>
-      )}
-      <div className="md:w-[40%] h-[300px]  w-[90%] flex justify-center items-center shadow-2xl drop-shadow-2xl bg-gray-300 mt-[100px]">
-        <form
-          className="w-full h-full flex flex-col justify-center gap-6  p-6  rounded shadow-md"
-          onSubmit={handleSubmit}
-        >
-          <div className="mb-4">
-            <label
-              htmlFor="image"
-              className="block text-lg text-slate-900 text-center font-medium mb-6"
+      {modal && (
+        <div className="rounded-xl absolute top-0 h-[300px] mt-[200px] z-30 bg-white ml-[500px]  w-[30%] flex justify-center items-center shadow-2xl drop-shadow-2xl  ">
+          {uploadMessage ? (
+            <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
+          ) : (
+            <form
+              className="w-[100%] h-full flex flex-col justify-center gap-6  p-6  rounded "
+              onSubmit={handleSubmit}
             >
-              File Upload
-            </label>
+              <div className="mb-4">
+                <label
+                  htmlFor="image"
+                  className="block font-bold text-2xl bg-clip-text  text-center  mb-6 text-transparent bg-gradient-to-r from-pink-800 to-violet-800 text-clip"
+                >
+                  File Upload
+                </label>
 
-            <input
-              type="file"
-              id="image"
-              className="hidden"
-              onChange={handleFileChange}
-            />
-            <label
-              htmlFor="image"
-              className="w-full px-4 py-2  rounded-lg cursor-pointer bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center"
-            >
-              Upload File
-            </label>
-          </div>
-          {file && (
-            <div className="mb-1 flex items-center justify-center">
-              <h3 className="text-lg font-bold text-white">
-                File is:{fileName}
-              </h3>
-            </div>
+                <input
+                  type="file"
+                  id="image"
+                  className="hidden"
+                  onChange={handleFileChange}
+                />
+                <label
+                  htmlFor="image"
+                  className="w-full px-4 py-2  rounded-lg cursor-pointer bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center"
+                >
+                  Upload File
+                </label>
+              </div>
+              {file && (
+                <div className="mb-1 flex items-center justify-center">
+                  <h3 className="text-lg font-bold text-black">
+                    File is:{fileName}
+                  </h3>
+                </div>
+              )}
+              <div>
+                <button
+                  type="submit"
+                  className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+                >
+                  Submit
+                </button>
+              </div>
+            </form>
           )}
-          <div>
-            <button
-              type="submit"
-              className="w-full px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-            >
-              Submit
-            </button>
-          </div>
-        </form>
-      </div>
+        </div>
+      )}
     </>
   );
 };

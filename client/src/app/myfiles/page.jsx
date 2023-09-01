@@ -38,14 +38,14 @@ const page = () => {
   }, [address]);
   return (
     <div className="p-4">
-      <h1 className="text-3xl font-bold mb-7 text-center">Files</h1>
+      <h1 className="text-3xl font-bold mb-7 text-center">My Files</h1>
       {loadMessage && (
         <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
       )}
-      <table className="w-full border">
+      <table className="w-[80%] mx-auto border">
         <thead>
           <tr className="bg-gray-200">
-            <th className="border px-4 py-2">File Links</th>
+            <th className="border px-4 py-2">My Files</th>
           </tr>
         </thead>
 
@@ -53,7 +53,7 @@ const page = () => {
           {files.length !== 0 &&
             files.map((file, index) => (
               <tr key={index} className="border">
-                <td className="px-4 py-2">
+                <td className="px-4 py-2 text-center">
                   <a
                     href={`https://gateway.pinata.cloud/ipfs/${file}`}
                     target="_blank"
