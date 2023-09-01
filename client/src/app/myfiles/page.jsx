@@ -38,14 +38,17 @@ const page = () => {
   }, [address]);
   return (
     <div className="p-4">
-      <h1 className="text-2xl font-bold mb-4">Files</h1>
+      <h1 className="text-3xl font-bold mb-7 text-center">Files</h1>
       {loadMessage && (
         <button
           type="button"
-          class="bg-indigo-500 flex items-center mx-auto justify-center w-[300px] px-3 py-1"
+          class="bg-indigo-500 flex items-center my-4 mx-auto justify-center w-[250px] px-3 py-1"
           disabled
         >
-          <span className="animate-spin text-white"></span>
+          <svg
+            class="animate-spin text-white h-5 w-5 mr-3"
+            viewBox="0 0 24 24"
+          ></svg>
           Processing...
         </button>
       )}

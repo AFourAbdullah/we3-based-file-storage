@@ -10,10 +10,15 @@ const Header = () => {
       <img src={logo} alt="" className="w-20 h-20" />
       {address && (
         <div className="flex text-white text-lg w-[300px] justify-between">
-          <Link href="/myfiles" className="mr-5">
+          <Link
+            href="/myfiles"
+            className="mr-5 hover:text-gray-400 hover:underline"
+          >
             My Files
           </Link>
-          <Link href="/myfiles">Allow Access</Link>
+          <Link href="/access" className="hover:text-gray-400 hover:underline">
+            Access
+          </Link>
         </div>
       )}
       <ConnectWallet theme="dark" className="connectBtn " />

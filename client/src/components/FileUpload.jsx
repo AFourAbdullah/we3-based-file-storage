@@ -19,13 +19,7 @@ const FileUpload = () => {
 
   const JWT = `Bearer ${process.env.NEXT_PUBLIC_PINATA_JWT}`;
   const GetFiles = async () => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    const contract = new ethers.Contract(
-      CONTRACT_ADDRESS,
-      CONTRACT_ABI,
-      signer
-    );
+   
     try {
       let filesArray = await contract.display(address);
 
