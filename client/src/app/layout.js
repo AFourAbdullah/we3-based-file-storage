@@ -4,6 +4,8 @@ import { Inter } from "next/font/google";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
 import { Sepolia } from "@thirdweb-dev/chains";
 import Header from "@/components/Header";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -17,6 +19,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ThirdwebProvider activeChain={Sepolia}>
+          <ToastContainer position="top-center" autoClose={3000} />
           <Header />
           {children}
         </ThirdwebProvider>

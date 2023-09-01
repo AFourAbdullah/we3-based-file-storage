@@ -3,6 +3,7 @@ import { CONTRACT_ABI, CONTRACT_ADDRESS } from "@/constants";
 import { useAddress } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 const page = () => {
   const [accessList, setAccessList] = useState([]);
@@ -11,7 +12,33 @@ const page = () => {
 
   const addressConnectedToDapp = useAddress();
 
-  const allowAccess = () => {};
+  const allowAccess = async (e) => {
+    e.preventDefault;
+    if (!address) {
+      return toast.error("Enter an address to allow access");
+    }
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      CONTRACT_ABI,
+      signer
+    );
+    setloadMessage(true);
+    try {
+      let transaction = await contract.allow(address);
+      await transaction.wait();
+      toast.success("Access Granted");
+      setAddress("");
+      getAccessList();
+
+      console.log(accessList);
+
+      setloadMessage(false);
+    } catch (error) {
+      setloadMessage(false);
+    }
+  };
   const getAccessList = async () => {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
@@ -22,7 +49,7 @@ const page = () => {
     );
     setloadMessage(true);
     try {
-      let accessData = await contract.shareAccess;
+      let accessData = await contract.shareAccess();
       setAccessList(accessData);
       console.log(accessList);
 
@@ -33,14 +60,15 @@ const page = () => {
   };
   useEffect(() => {
     getAccessList();
+    console.log(accessList);
   }, []);
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8 text-center underline">
+      <h1 className="text-3xl w-[300px] mx-auto px-2 py-3 font-bold mb-8 text-center  bg-slate-900 text-white">
         Access Control
       </h1>
-      <h3 className="text-3xl font-bold mb-8 text-center underline">
+      <h3 className="text-xl font-bold mb-8 text-center underline">
         Control who can view your files
       </h3>
 
@@ -48,7 +76,7 @@ const page = () => {
         <input
           type="text"
           placeholder="Enter Address"
-          className=" shadow-lg rounded p-2 mr-2 w-[450px] border-[1px]"
+          className=" shadow-lg border-2 placeholder-gray-700 border-black rounded p-2 mr-2 w-[450px] "
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
@@ -59,33 +87,46 @@ const page = () => {
           Allow Access
         </button>
       </div>
-
-      <table className="table-auto w-full">
-        <thead>
-          <tr>
-            <th className="px-4 py-2">Address</th>
-            <th className="px-4 py-2">Access</th>
-            <th className="px-4 py-2">Action</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+      <h3 className="text-center my-5 font-semibold text-xl">My Access List</h3>
+      {loadMessage ? (
+        <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
+      ) : (
+        <table className="table-auto w-full">
+          <thead>
+            <tr>
+              <th className="px-4 py-2 border-2 border-black">Address</th>
+              <th className="px-4 py-2 border-2 border-black">Access</th>
+              <th className="px-4 py-2 border-2 border-black">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {accessList.length !== 0 &&
+              accessList.map((item, index) => (
+                <tr key={index}>
+                  <td className=" px-1 py-2 border-2 border-slate-600">
+                    {item.user}
+                  </td>
+                  <td className=" px-4 py-2 border-2 border-slate-600">
+                    {item.access ? "Allowed" : "Denied"}
+                  </td>
+                  <td className=" px-4  w-[200px] py-2 border-2 border-slate-600">
+                    {item.access ? (
+                      <button className="bg-red-800 ml-5 text-white px-2 hover:bg-red-600 py-1 rounded">
+                        Deny Access
+                      </button>
+                    ) : (
+                      <button className="bg-green-800 ml-5 text-white px-2 hover:bg-green-600 py-1 rounded">
+                        Allow Access
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      )}
     </div>
   );
 };
 
 export default page;
-
-// {
-//   accessList.map((item, index) => (
-//     <tr key={index}>
-//       <td className="border px-4 py-2">{item.address}</td>
-//       <td className="border px-4 py-2">{item.access ? "Allowed" : "Denied"}</td>
-//       <td className="border px-4 py-2">
-//         {/* You can add action buttons here */}
-//         {/* Example: */}
-//         {/* <button className="bg-green-500 text-white px-2 py-1 rounded">Edit</button> */}
-//       </td>
-//     </tr>
-//   ));
-// }

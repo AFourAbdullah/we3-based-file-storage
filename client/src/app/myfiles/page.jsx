@@ -40,17 +40,7 @@ const page = () => {
     <div className="p-4">
       <h1 className="text-3xl font-bold mb-7 text-center">Files</h1>
       {loadMessage && (
-        <button
-          type="button"
-          class="bg-indigo-500 flex items-center my-4 mx-auto justify-center w-[250px] px-3 py-1"
-          disabled
-        >
-          <svg
-            class="animate-spin text-white h-5 w-5 mr-3"
-            viewBox="0 0 24 24"
-          ></svg>
-          Processing...
-        </button>
+        <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
       )}
       <table className="w-full border">
         <thead>
