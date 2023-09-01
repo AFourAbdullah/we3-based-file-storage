@@ -5,6 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "@/constants";
 import { ethers } from "ethers";
+import { AiFillCloseCircle } from "react-icons/ai";
 import { useAddress } from "@thirdweb-dev/react";
 const FileUpload = ({ uploadModal, modal }) => {
   const [recipient, setRecipient] = useState("");
@@ -71,7 +72,14 @@ const FileUpload = ({ uploadModal, modal }) => {
   return (
     <>
       {modal && (
-        <div className="rounded-xl absolute top-0 h-[300px] mt-[200px] z-30 bg-white ml-[500px]  w-[30%] flex justify-center items-center shadow-2xl drop-shadow-2xl  ">
+        <div className="rounded-xl absolute top-0 h-[300px] mt-[200px] z-30 bg-white ml-[500px]  w-[30%] flex items-center shadow-2xl drop-shadow-2xl flex-col ">
+          <div className="w-full flex justify-end items-center pr-5">
+            <AiFillCloseCircle
+              className="text-2xl mt-2 cursor-pointer"
+              onClick={() => uploadModal(false)}
+            />
+          </div>
+
           {uploadMessage ? (
             <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
           ) : (
