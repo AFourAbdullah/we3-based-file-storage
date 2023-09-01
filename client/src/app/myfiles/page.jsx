@@ -37,7 +37,7 @@ const page = () => {
     console.log(files);
   }, [address]);
   return (
-    <div className="p-4">
+    <div className="p-4 mt-7">
       <h1 className="text-3xl font-bold mb-7 text-center">My Files</h1>
       {loadMessage && (
         <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
