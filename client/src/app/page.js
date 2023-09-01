@@ -6,9 +6,11 @@ import Header from "@/components/Header";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "@/constants";
 import FileUpload from "@/components/FileUpload";
 import { useAddress } from "@thirdweb-dev/react";
+import Hero from "@/components/Hero";
 
 export default function Home() {
   const [contract, setContract] = useState();
+  const [uploadModal, setuploadModal] = useState(false);
   useEffect(() => {
     if (!window.ethereum) {
       alert("please install metamask");
@@ -26,8 +28,14 @@ export default function Home() {
     // console.log(ipfsJsn.name);
   }, []);
   return (
-    <main className="flex   items-center justify-around ">
-      <FileUpload contract={contract} />
+    <main className="w-screen">
+      <Hero uploadModal={setuploadModal} />
+
+      <FileUpload
+        contract={contract}
+        modal={uploadModal}
+        uploadModal={setuploadModal}
+      />
     </main>
   );
 }
