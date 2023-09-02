@@ -10,6 +10,7 @@ const MyFiles = () => {
   const [files, setFiles] = useState([]);
   const [loadMessage, setloadMessage] = useState(false);
   const [addressTOVIew, setAddressTOVIew] = useState("");
+  console.log("hello");
 
   const address = useAddress();
 
