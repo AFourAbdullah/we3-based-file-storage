@@ -4,6 +4,7 @@ import { useAddress } from "@thirdweb-dev/react";
 import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
+import { toast } from "react-toastify";
 
 const MyFiles = () => {
   const [files, setFiles] = useState([]);
@@ -24,10 +25,31 @@ const MyFiles = () => {
     try {
       if (!address) return toast.error("Please connect metamask!");
 
+      let filesArray = (filesArray = await contract.display(address));
+
+      console.log(filesArray);
+      setFiles(filesArray);
+      setloadMessage(false);
+    } catch (error) {
+      console.log(error);
+      setloadMessage(false);
+    }
+  };
+  const GetOtherFiles = async () => {
+    if (!addressTOVIew) return toast.error("Please enter an address");
+    setloadMessage(true);
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const contract = new ethers.Contract(
+      CONTRACT_ADDRESS,
+      CONTRACT_ABI,
+      signer
+    );
+    try {
+      if (!address) return toast.error("Please connect metamask!");
+
       let filesArray;
-      addressTOVIew
-        ? (filesArray = await contract.display(addressTOVIew))
-        : (filesArray = await contract.display(address));
+      addressTOVIew && (filesArray = await contract.display(addressTOVIew));
 
       console.log(filesArray);
       setFiles(filesArray);
@@ -56,10 +78,21 @@ const MyFiles = () => {
 
         <button
           className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded"
-          onClick={GetFiles}
+          onClick={GetOtherFiles}
         >
           View Files
         </button>
+        {addressTOVIew && (
+          <button
+            className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded"
+            onClick={() => {
+              setAddressTOVIew("");
+              GetFiles();
+            }}
+          >
+            View My Files
+          </button>
+        )}
       </div>
       {loadMessage && (
         <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
@@ -67,7 +100,7 @@ const MyFiles = () => {
       <table className="w-[80%] mx-auto border">
         <thead>
           <tr className="bg-gray-200">
-            <th className="border px-4 py-2">My Files</th>
+            <th className="border px-4 py-2">Files</th>
           </tr>
         </thead>
 
