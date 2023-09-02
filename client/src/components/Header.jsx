@@ -21,9 +21,7 @@ const Header = () => {
 
       {address && (
         <div
-          className={`md:flex ${
-            isOpen ? "absolute" : "hidden"
-          } a text-white text-lg md:w-[300px] w-screen bg-blue-900 flex-col md:flex-row items-center justify-between`}
+          className={`md:flex md:relative absolute  text-white text-lg  top-0 left-0 md:w-[30%] w-screen md:mt-0 mt-20 bg-blue-900  md:flex-row items-center gap-20 flex justify-center md:gap-0  md:py-0 border-2 border-white py-1 md:justify-between`}
         >
           <Link
             href="/myfiles"
@@ -37,13 +35,6 @@ const Header = () => {
         </div>
       )}
       <ConnectWallet theme="dark" className="connectBtn " />
-      <div className="md:hidden flex items-center justify-center w-[30px] text-white text-lg">
-        {isOpen ? (
-          <AiFillCloseCircle onClick={() => toggleMenu()} />
-        ) : (
-          <AiOutlineMenu onClick={() => toggleMenu()} />
-        )}
-      </div>
     </header>
   );
 };

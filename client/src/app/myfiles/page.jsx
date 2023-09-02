@@ -8,6 +8,7 @@ import { BiLinkExternal } from "react-icons/bi";
 const page = () => {
   const [files, setFiles] = useState([]);
   const [loadMessage, setloadMessage] = useState(false);
+  const [addressTOVIew, setAddressTOVIew] = useState("");
 
   const address = useAddress();
 
@@ -21,7 +22,10 @@ const page = () => {
       signer
     );
     try {
-      let filesArray = await contract.display(address);
+      let filesArray;
+      addressTOVIew
+        ? (filesArray = await contract.display(addressTOVIew))
+        : (filesArray = await contract.display(address));
 
       console.log(filesArray);
       setFiles(filesArray);
@@ -39,6 +43,23 @@ const page = () => {
   return (
     <div className="p-4 mt-7">
       <h1 className="text-3xl font-bold mb-7 text-center">My Files</h1>
+      <div className="mb-4  flex items-center justify-center gap-4">
+        <input
+          type="text"
+          placeholder="Enter Address To view External Files"
+          className=" shadow-lg border-2 placeholder-gray-700 border-black rounded p-2 mr-2 w-[450px] "
+          value={addressTOVIew}
+          onChange={(e) => setAddressTOVIew(e.target.value)}
+        />
+        {addressTOVIew && (
+          <button
+            className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded"
+            onClick={GetFiles}
+          >
+            View {addressTOVIew && addressTOVIew}'s Files
+          </button>
+        )}
+      </div>
       {loadMessage && (
         <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
       )}

@@ -70,9 +70,12 @@ const FileUpload = ({ uploadModal, modal }) => {
   };
 
   return (
-    <>
+    <div>
       {modal && (
-        <div className="rounded-xl absolute top-0 h-[300px] mt-[200px] z-30 bg-white ml-[500px]  w-[30%] flex items-center shadow-2xl drop-shadow-2xl flex-col ">
+        <div
+          className="rounded-xl h-[300px] border-2 border-white z-30 bg-white ml-0 
+  lg:w-[40vw] md:w-[60vw] w-[80vw] mt-[70px] flex items-center shadow-2xl drop-shadow-2xl flex-col absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+        >
           <div className="w-full flex justify-end items-center pr-5">
             <AiFillCloseCircle
               className="text-2xl mt-2 cursor-pointer"
@@ -127,7 +130,7 @@ const FileUpload = ({ uploadModal, modal }) => {
           )}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
