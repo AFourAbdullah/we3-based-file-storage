@@ -88,10 +88,10 @@ const page = () => {
   useEffect(() => {
     getAccessList();
     console.log(accessList);
-  }, []);
+  }, [addressConnectedToDapp]);
 
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mt-[100px] mx-auto p-4">
       <h1 className="text-3xl w-[300px] mx-auto px-2 py-3 font-bold mb-8 text-center  bg-slate-900 text-white">
         Access Control
       </h1>
@@ -115,9 +115,10 @@ const page = () => {
         </button>
       </div>
       <h3 className="text-center my-5 font-semibold text-xl">My Access List</h3>
+
       {loadMessage ? (
         <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
-      ) : (
+      ) : accessList.length !== 0 ? (
         <table className="table-auto w-full">
           <thead>
             <tr>
@@ -158,6 +159,8 @@ const page = () => {
               ))}
           </tbody>
         </table>
+      ) : (
+        <h2 className="text-xl font-bold mb-8 text-center ">No List Found</h2>
       )}
     </div>
   );

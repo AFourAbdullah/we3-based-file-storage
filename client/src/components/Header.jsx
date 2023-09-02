@@ -21,7 +21,7 @@ const Header = () => {
 
       {address && (
         <div
-          className={`md:flex md:relative absolute  text-white text-lg  top-0 left-0 md:w-[30%] w-screen md:mt-0 mt-20 bg-blue-900  md:flex-row items-center gap-20 flex justify-center md:gap-0  md:py-0 border-2 border-white py-1 md:justify-between`}
+          className={`md:flex md:relative absolute  text-white text-lg  top-0 left-0 md:w-[30%] w-screen md:mt-0 mt-20 bg-cyan-900 md:bg-transparent  md:flex-row items-center gap-20 flex justify-center md:gap-0  md:py-0  py-1 md:justify-between`}
         >
           <Link
             href="/myfiles"

@@ -89,6 +89,9 @@ const page = () => {
             ))}
         </tbody>
       </table>
+      {files.length == 0 && (
+        <h2 className="text-xl font-bold mb-8 text-center ">No Files Found</h2>
+      )}
     </div>
   );
 };
