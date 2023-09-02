@@ -53,14 +53,13 @@ const MyFiles = () => {
           value={addressTOVIew}
           onChange={(e) => setAddressTOVIew(e.target.value)}
         />
-        {addressTOVIew && (
-          <button
-            className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded"
-            onClick={GetFiles}
-          >
-            View {addressTOVIew && addressTOVIew}'s Files
-          </button>
-        )}
+
+        <button
+          className="bg-slate-800 hover:bg-slate-700 text-white px-4 py-2 rounded"
+          onClick={GetFiles}
+        >
+          View Files
+        </button>
       </div>
       {loadMessage && (
         <div className="animate-spin h-20 w-20 rounded-full mx-auto border-r-2 border-l-2 border-slate-900"></div>
