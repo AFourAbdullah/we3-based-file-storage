@@ -55,6 +55,7 @@ const MyFiles = () => {
       setFiles(filesArray);
       setloadMessage(false);
     } catch (error) {
+      toast.error(error);
       console.log(error);
       setloadMessage(false);
     }
