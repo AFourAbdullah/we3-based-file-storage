@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { BiLinkExternal } from "react-icons/bi";
 
-const page = () => {
+const MyFiles = () => {
   const [files, setFiles] = useState([]);
   const [loadMessage, setloadMessage] = useState(false);
   const [addressTOVIew, setAddressTOVIew] = useState("");
@@ -22,6 +22,8 @@ const page = () => {
       signer
     );
     try {
+      if (!address) return toast.error("Please connect metamask!");
+
       let filesArray;
       addressTOVIew
         ? (filesArray = await contract.display(addressTOVIew))
@@ -96,4 +98,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default MyFiles;

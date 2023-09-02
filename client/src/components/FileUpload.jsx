@@ -39,6 +39,8 @@ const FileUpload = ({ uploadModal, modal }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!address) return toast.error("Please connect metamask!");
+    if (!file) return toast.error("Please Upload a file!");
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(

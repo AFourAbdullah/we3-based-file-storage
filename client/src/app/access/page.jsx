@@ -5,7 +5,7 @@ import { ethers } from "ethers";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-const page = () => {
+const Accesspage = () => {
   const [accessList, setAccessList] = useState([]);
   const [address, setAddress] = useState("");
   const [loadMessage, setloadMessage] = useState(false);
@@ -26,6 +26,9 @@ const page = () => {
     );
     setloadMessage(true);
     try {
+      if (!addressConnectedToDapp)
+        return toast.error("Please connect metamask!");
+
       let transaction = await contract.allow(address);
       await transaction.wait();
       toast.success("Access Granted");
@@ -40,6 +43,8 @@ const page = () => {
     }
   };
   const modifyAccess = async (add, acc) => {
+    if (!addressConnectedToDapp) return toast.error("Please connect metamask!");
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(
@@ -67,6 +72,8 @@ const page = () => {
     }
   };
   const getAccessList = async () => {
+    if (!addressConnectedToDapp) return toast.error("Please connect metamask!");
+
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const contract = new ethers.Contract(
@@ -166,4 +173,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default Accesspage;
