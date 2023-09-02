@@ -25,7 +25,7 @@ const MyFiles = () => {
     try {
       if (!address) return toast.error("Please connect metamask!");
 
-      let filesArray = (filesArray = await contract.display(address));
+      let filesArray = await contract.display(address);
 
       console.log(filesArray);
       setFiles(filesArray);
